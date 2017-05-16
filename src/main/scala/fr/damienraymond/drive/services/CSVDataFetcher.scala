@@ -1,7 +1,7 @@
 package fr.damienraymond.drive.services
 import fr.damienraymond.drive.Configuration
 import fr.damienraymond.drive.Configuration._
-import fr.damienraymond.drive.model.{AgentBreed, InputData}
+import fr.damienraymond.drive.model.{AgentBreed, Agent}
 
 import scala.io.Source
 
@@ -10,7 +10,7 @@ import scala.io.Source
   */
 class CSVDataFetcher extends DataFetcher {
 
-  override def fetch(): List[InputData] =
+  override def fetch(): List[Agent] =
     Source.fromFile(INPUT_FILE)
       .getLines()
       .drop(1) // drop first line
@@ -18,7 +18,7 @@ class CSVDataFetcher extends DataFetcher {
       .toList
 
   // TODO .replaceAll(",", ".") is ugly
-  private def processLine(line: String): InputData = {
+  private def processLine(line: String): Agent = {
     line.split(CSV_SEPARATOR)
       .map(_.trim) match {
         case Array(agentBreed,
@@ -31,7 +31,7 @@ class CSVDataFetcher extends DataFetcher {
                    attributePromotions,
                    autoRenew,
                    inertiaForSwitch) =>
-          InputData(agentBreed,
+          Agent(agentBreed,
             policyId.replaceAll(",", ".").toDouble,
             age.toInt,
             socialGrade.toInt,

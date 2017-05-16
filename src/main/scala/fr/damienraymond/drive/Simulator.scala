@@ -1,6 +1,6 @@
 package fr.damienraymond.drive
 
-import fr.damienraymond.drive.model.{AgentBreed, BreedC, BreedNC, InputData}
+import fr.damienraymond.drive.model.{AgentBreed, BreedC, BreedNC, Agent}
 import fr.damienraymond.drive.services.{CSVDataFetcher, DataFetcher}
 
 /**
@@ -30,7 +30,7 @@ class Simulator {
 
 
   // TODO refactor
-  def handleOneDataRow(data: InputData, bandFactor: Float): Option[AgentBreed] = {
+  def handleOneDataRow(data: Agent, bandFactor: Float): Option[AgentBreed] = {
 
     // TODO age incrementation
 
