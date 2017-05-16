@@ -1,13 +1,14 @@
 package fr.damienraymond.drive
 
 import fr.damienraymond.drive.model.{AgentBreed, BreedC, BreedNC, Agent}
-import fr.damienraymond.drive.services.{CSVDataFetcher, DataFetcher}
+import fr.damienraymond.drive.datafetcher.{CSVDataFetcher, DataFetcher}
 
 /**
   * Created by damien on 16/05/2017.
   */
 class Simulator {
 
+  // TODO use DI ?
   private val dataFetcher: DataFetcher = new CSVDataFetcher
 
 

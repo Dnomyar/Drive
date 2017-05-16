@@ -1,4 +1,4 @@
-package fr.damienraymond.drive.services
+package fr.damienraymond.drive.datafetcher
 
 import fr.damienraymond.drive.model.Agent
 
