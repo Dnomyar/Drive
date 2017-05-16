@@ -17,10 +17,11 @@ class Simulator {
     val bandFactor: Float = 1 // TODO
 
     val output =
-      for{
-        year <- 0 until 15
-        row <- data
-      } yield (year, handleOneDataRow(row, bandFactor))
+      (0 until 15).map { year =>
+        data
+          .flatMap(handleOneDataRow(_, bandFactor))
+          .map((year, _))
+      }
 
 
     println(output.mkString("\n"))
