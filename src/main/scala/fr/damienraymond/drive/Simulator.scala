@@ -1,28 +1,38 @@
 package fr.damienraymond.drive
 
 import fr.damienraymond.drive.model.{AgentBreed, BreedC, BreedNC, InputData}
-import fr.damienraymond.drive.services.DataFetcher
+import fr.damienraymond.drive.services.{CSVDataFetcher, DataFetcher}
 
 /**
   * Created by damien on 16/05/2017.
   */
 class Simulator {
 
-  private val dataFetcher: DataFetcher = new DataFetcher
+  private val dataFetcher: DataFetcher = new CSVDataFetcher
 
   def simulate(): Unit = {
 
-    dataFetcher.fetch()
+    val data = dataFetcher.fetch()
 
-    for(year <- 0 until 15){}
+    val bandFactor: Float = 1 // TODO
+
+    val output =
+      for{
+        year <- 0 until 15
+        row <- data
+      } yield (year, handleOneDataRow(row, bandFactor))
 
 
+    println(output.mkString("\n"))
 
   }
 
 
-  // Todo refactor
+  // TODO refactor
   def handleOneDataRow(data: InputData, bandFactor: Float): Option[AgentBreed] = {
+
+    // TODO age incrementation
+
     if (data.autoRenew){
       // Do nothing, maintain Breed<
       Some(data.agentBreed)

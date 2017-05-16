@@ -1,4 +1,4 @@
-package fr.damienraymond.drive
+package fr.damienraymond.drive.services
 
 import fr.damienraymond.drive.model.InputData
 
