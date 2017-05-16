@@ -33,9 +33,9 @@ The steps are :
 | | | +--- datafetcher                  -> Read data source
 | | | | +--- DataFetcher.scala            -> Trait definition
 | | | | +--- CSVDataFetcher.scala         -> CSV implementation of the trait
-| | | +--- Main.scala
+| | | +--- Main.scala                   -> Launch Simulator
 | | | +--- model
-| | | | +--- Agent.scala                -> Agent case class corresponds to a row of the input file
+| | | | +--- Agent.scala                -> Agent case class that corresponds to a row of the input file
 | | | | +--- AgentBreed.scala           -> AgentBreed is a trait to define only two type of agent : C and NC
 | | | +--- Simulator.scala              -> The main class that contains the algo and the prints
 
