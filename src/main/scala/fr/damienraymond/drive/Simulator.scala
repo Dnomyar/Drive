@@ -25,44 +25,57 @@ class Simulator {
         )
       }
 
-
-    //println(output.mkString("\n"))
-
     printResult(output)
 
   }
 
 
-  // TODO refactor
   def handleOneDataRow(agent: Agent, bandFactor: Float): Option[AgentBreed] = {
 
-    // TODO age incrementation
-
-    if (agent.autoRenew){
-      // Do nothing, maintain Breed<
-      Some(agent.agentBreed)
-    }else{
+    def getAffinity = {
       val rand = Math.random() * 3
-      val affinity = agent.paymentAtPurchase / agent.attributePrice + (rand * agent.attributePromotions * agent.inertiaForSwitch)
-      if(agent.agentBreed == BreedC && affinity < (agent.socialGrade * agent.attributeBrand)){
-        // Switch Breed to Breed_NC
-        Some(BreedNC)
-      } else if (agent.agentBreed == BreedC && affinity < (agent.socialGrade * agent.attributeBrand * bandFactor)){
-        // Switch Breed to Breed_C
-        Some(BreedC)
-      } else {
-        None
-      }
+
+      agent.paymentAtPurchase / agent.attributePrice + (rand * agent.attributePromotions * agent.inertiaForSwitch)
     }
+
+    def shouldSwitchToBreedNC(affinity: Double) = {
+      agent.agentBreed == BreedC && affinity < (agent.socialGrade * agent.attributeBrand)
+    }
+
+    def shouldSwitchToBreedC(affinity: Double) = {
+      agent.agentBreed == BreedC && affinity < (agent.socialGrade * agent.attributeBrand * bandFactor)
+    }
+
+    // TODO age incrementation ?
+
+
+    // Do nothing, maintain Breed<
+    if (agent.autoRenew){
+      return Some(agent.agentBreed)
+    }
+
+    val affinity = getAffinity
+
+    // Switch Breed to Breed_NC
+    if(shouldSwitchToBreedNC(affinity)){
+      return Some(BreedNC)
+    }
+
+    // Switch Breed to Breed_C
+    if (shouldSwitchToBreedC(affinity)){
+      return Some(BreedC)
+    }
+
+    None
   }
 
 
 
   def printResult(output: Seq[(Int, List[AgentBreed])]): Unit = {
 
-
-
     output.foreach(e => printOneYear(e._1, e._2))
+
+    // TODO print final
   }
 
 
